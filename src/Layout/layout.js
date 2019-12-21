@@ -1,6 +1,8 @@
 import React from 'react'
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components'
 import { theme } from '../utils/theme'
+import Menu from '../components/Menu/Menu'
+
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -35,16 +37,17 @@ const StyledPage = styled.div`
 `;
 
 const Layout = ({ children }) => (
-    <ThemeProvider theme={theme}>
-        <>
-            <GlobalStyle />
-            <StyledWrapper>
-                <StyledPage>
-                    {children}
-                </StyledPage>
-            </StyledWrapper>
-        </>
-    </ThemeProvider>
+  <ThemeProvider theme={theme}>
+    <>
+      <GlobalStyle />
+      <StyledWrapper>
+        <StyledPage>
+          <Menu />
+          {children}
+        </StyledPage>
+      </StyledWrapper>
+    </>
+  </ThemeProvider>
 )
 
 export default Layout
