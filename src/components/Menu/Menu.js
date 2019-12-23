@@ -6,10 +6,13 @@ import magnetizeAnimation from '../../utils/magnetizeAnimation'
 import { useStaticQuery, graphql } from "gatsby"
 import MenuSocial from './MenuSocial'
 import logo from '../../images/logo-ico.png'
+import { colors } from '../../utils/colors'
+import TransitionLink from 'gatsby-plugin-transition-link'
 
 const StyledMenuContainer = styled.div`
     position: fixed;
     left:0;
+    z-index: 100;
 `;
 
 const StyledMenu = styled.nav`
@@ -23,7 +26,7 @@ const StyledMenu = styled.nav`
     position: absolute;
     top: 0;
     width: 460px;
-    transition: all 0.2s ease;
+    transition: all 0.5s ease;
     @media ${({ theme }) => theme.device.mobileL} {
         width: 100vw;
     }
@@ -58,7 +61,7 @@ const StyledMenuLinkLabel = styled.span`
     transition: .1s;
 `;
 
-const StyledLink = styled(Link)`
+const StyledLink = styled(TransitionLink)`
     text-decoration: none;
     color: ${({ theme }) => theme.colors.font};
     transition: .2s;
@@ -80,7 +83,7 @@ const StyledMenuLink = styled.li`
 
 
 
-const Menu = ({ location }) => {
+const Menu = () => {
 
     const [menuOpen, setMenuOpen] = useState(false)
 
@@ -100,7 +103,7 @@ const Menu = ({ location }) => {
       }
     }
   `)
-    console.log(location)
+
     return (
         <StyledMenuContainer>
             <MenuButton setMenuOpen={setMenuOpen} menuOpen={menuOpen} />
@@ -111,8 +114,23 @@ const Menu = ({ location }) => {
                 <StyledMenuLinks>
                     {data.site.siteMetadata.menuLinks.map((menuLink, i) => (
                         <StyledMenuLink key={menuLink.name}>
-                            <StyledMenuLinkLabel>{`0${i + 1}`}</StyledMenuLinkLabel>
-                            <StyledLink to={menuLink.link} propsss='12432' >{menuLink.name}</StyledLink>
+                            <StyledLink
+                                onClick={() => setMenuOpen(false)}
+                                activeStyle={{ color: `${colors.border}` }}
+                                to={menuLink.link}
+                                exit={{
+                                    delay: 0.2,
+                                    length: 0.2,
+
+                                }}
+                                entry={{
+                                    delay: 0.2,
+                                    length: 0.2,
+                                }}
+                            >
+                                {menuLink.name}
+                                <StyledMenuLinkLabel>{`0${i + 1}`}</StyledMenuLinkLabel>
+                            </StyledLink>
                         </StyledMenuLink>
                     ))}
                 </StyledMenuLinks>
