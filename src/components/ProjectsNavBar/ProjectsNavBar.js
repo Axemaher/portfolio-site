@@ -2,29 +2,6 @@ import React from 'react'
 import styled from 'styled-components'
 import ScrollspyNav from "react-scrollspy-nav";
 
-const data = [
-    {
-        id: 'gamesDatabase',
-        label: 'Games database',
-        href: '#gamesDatabase'
-    },
-    {
-        id: 'reclamations',
-        label: 'Reclamations',
-        href: '#reclamations'
-    },
-    {
-        id: 'weather',
-        label: 'Weather App',
-        href: '#weather'
-    },
-    {
-        id: 'returnGenerator',
-        label: 'Return PDF generator',
-        href: '#returnGenerator'
-    },
-]
-
 const StyledSectionBar = styled.div`
     position: fixed;
     z-index: 1;
@@ -32,6 +9,9 @@ const StyledSectionBar = styled.div`
     right: 0;
     transform: translate(-50%, -50%);
     background-color: transparent;
+    @media ${({ theme }) => theme.device.tablet}{
+        display: none;
+    }
 `;
 
 const StyledSectionBarWrapper = styled(ScrollspyNav)`
@@ -126,14 +106,14 @@ const StyledSectionBarAnchorLast = styled(StyledSectionBarAnchor)`
     }
 `;
 
-const ProjectsNavBar = () => {
-
+const ProjectsNavBar = ({ data }) => {
     const sectionList = data.map((e, i) => {
+        const { href, title } = e.node
         if (i === 0) {
             return (
-                <StyledSectionBarElement>
-                    <StyledSectionBarAnchorFirst className="is-active" href={e.href}>
-                        <StyledCircleLabel>{e.label}</StyledCircleLabel>
+                <StyledSectionBarElement key={title}>
+                    <StyledSectionBarAnchorFirst className="is-active" href={href}>
+                        <StyledCircleLabel>{title}</StyledCircleLabel>
                         <StyledSectionBarSpan />
                     </StyledSectionBarAnchorFirst>
                 </StyledSectionBarElement>
@@ -141,9 +121,9 @@ const ProjectsNavBar = () => {
         }
         if (i < data.length - 1) {
             return (
-                <StyledSectionBarElement>
-                    <StyledSectionBarAnchor href={e.href}>
-                        <StyledCircleLabel>{e.label}</StyledCircleLabel>
+                <StyledSectionBarElement key={title}>
+                    <StyledSectionBarAnchor href={href}>
+                        <StyledCircleLabel>{title}</StyledCircleLabel>
                         <StyledSectionBarSpan />
                     </StyledSectionBarAnchor>
                 </StyledSectionBarElement>
@@ -151,9 +131,9 @@ const ProjectsNavBar = () => {
         }
         if (i === data.length - 1) {
             return (
-                <StyledSectionBarElement>
-                    <StyledSectionBarAnchorLast href={e.href}>
-                        <StyledCircleLabel>{e.label}</StyledCircleLabel>
+                <StyledSectionBarElement key={title}>
+                    <StyledSectionBarAnchorLast href={href}>
+                        <StyledCircleLabel>{title}</StyledCircleLabel>
                         <StyledSectionBarSpan />
                     </StyledSectionBarAnchorLast>
                 </StyledSectionBarElement>
@@ -163,7 +143,7 @@ const ProjectsNavBar = () => {
 
     return (
         <StyledSectionBar>
-            <StyledSectionBarWrapper scrollTargetIds={data.map(e => e.id)} activeNavClass="is-active" scrollDuration='500' >
+            <StyledSectionBarWrapper scrollTargetIds={data.map(e => e.node.idText)} activeNavClass="is-active" scrollDuration='500' offset={200} >
                 <StyledSectionBarList>
                     {sectionList}
                 </StyledSectionBarList>

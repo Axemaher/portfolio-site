@@ -50,5 +50,12 @@ module.exports = {
     // `gatsby-plugin-offline`,
     `gatsby-plugin-styled-components`,
     `gatsby-plugin-transition-link`,
+    {
+      resolve: `gatsby-source-contentful`,
+      options: {
+        spaceId: `fr32xkxy9k0q`,
+        accessToken: 'Mj10oAHKo45JIYNhn7x-f7Ktmfxc13NFyiJGAD40zZE',
+      },
+    },
   ],
 }

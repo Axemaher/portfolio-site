@@ -9,21 +9,24 @@ const StyledPageInfo = styled.div`
     transform: translate(-50%, -50%);
     transform: rotate(270deg);
     transform-origin: top left;
+    @media ${({ theme }) => theme.device.tablet}{
+        display: none;
+    }
 `;
 
 const StyledPageInfoLabel = styled.p`
-      &:before,
-      &:after {
+    &:before,
+    &:after {
         position: absolute;
         content: "";
         border-bottom: 1px solid ${({ theme }) => theme.colors.elements};
         width: 50px;
         top: 23px;
         right: -60px;
-      }
-      &:after {
+    }
+    &:after {
         left: -60px;
-      }
+    }
 `;
 
 const PageInfo = ({ children }) => {

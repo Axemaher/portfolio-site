@@ -6,7 +6,7 @@ import H1 from '../components/H1'
 const IndexPage = () => (
   <>
     <Layout>
-      <H1>Hello</H1>
+      <H1>Hi, I'm Marcin. I build web applications</H1>
     </Layout>
   </>
 )

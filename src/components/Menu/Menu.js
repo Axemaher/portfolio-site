@@ -22,7 +22,7 @@ const StyledMenu = styled.nav`
     display: grid;
     grid-template-rows: 15% 65% 20%;
     height: 100vh;
-    transform: translateX${({ menuOpen }) => menuOpen ? '(0)' : '(-100vw)'};
+    transform: translateX${({ menuOpen }) => menuOpen ? '(0)' : '(-200vw)'};
     position: absolute;
     top: 0;
     width: 460px;

@@ -2,7 +2,6 @@ import { TweenMax } from "gsap";
 import 'gsap/CSSPlugin';
 
 const magnetizeAnimation = (elementClassName, maxDistance) => {
-    console.log('animation')
     if (window.innerWidth > 600) {
         document.addEventListener("mousemove", e => {
             positionCalculating(`.${elementClassName}`, e);

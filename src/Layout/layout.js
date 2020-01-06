@@ -34,6 +34,13 @@ const StyledPage = styled.div`
     max-width: 1440px;
     padding: 0 40px;
   }
+  @media ${({ theme }) => theme.device.tablet}{
+        width: 100vw;
+        padding: 0 20px;
+  }
+  @media ${({ theme }) => theme.device.mobileL}{
+        padding: 0 10px;
+    }
 `;
 
 const Layout = ({ children }) => (
