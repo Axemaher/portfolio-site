@@ -143,7 +143,7 @@ const ProjectsNavBar = ({ data }) => {
 
     return (
         <StyledSectionBar>
-            <StyledSectionBarWrapper scrollTargetIds={data.map(e => e.node.idText)} activeNavClass="is-active" scrollDuration='500' offset={200} >
+            <StyledSectionBarWrapper scrollTargetIds={data.map(e => e.node.idText)} activeNavClass="is-active" scrollDuration='500' offset={2} >
                 <StyledSectionBarList>
                     {sectionList}
                 </StyledSectionBarList>

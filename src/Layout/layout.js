@@ -8,6 +8,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     font-family: 'Montserrat', sans-serif;
+    scroll-behavior: smooth;
   }
   *, *::before, *::after{
     box-sizing: border-box;

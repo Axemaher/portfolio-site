@@ -1,11 +1,11 @@
-import React from "react"
+
 import Layout from '../Layout/layout'
 import PageInfo from '../components/PageInfo/PageInfo'
 import ProjectsNavBar from '../components/ProjectsNavBar/ProjectsNavBar'
 import styled from 'styled-components'
 import Img from "gatsby-image"
 import 'gatsby-image/withIEPolyfill'
-
+import React, { Component } from 'react'
 const StyledProjectsWrapper = styled.div`
     display: block;
     width: 100vw;
@@ -14,7 +14,8 @@ const StyledProjectsWrapper = styled.div`
 const StyledSection = styled.section`
     width: 100%;
     margin: 0 auto;
-    padding-top: 200px;
+    padding-top: 100px;
+    margin-top: 100px;
     max-width: 1200px;
     min-height: 105vh;
     display: grid;
@@ -22,6 +23,10 @@ const StyledSection = styled.section`
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 0.2fr 1.8fr;
     grid-template-areas: "title title" "image description";
+    &:first-child {
+        padding-top: 50px;
+        margin-top: 0;
+    }
     @media ${({ theme }) => theme.device.tablet}{
         grid-template-columns: 1fr;
         grid-template-rows: auto auto 70vw;
@@ -150,60 +155,77 @@ const StyledImage = styled(Img)`
     padding: 10px;
 `;
 
-const Projects = ({ data }) => {
-    console.log(data)
-    return (
-        <>
-            <Layout>
-                <PageInfo>projects</PageInfo>
-                <ProjectsNavBar data={data.allContentfulProjects.edges} />
-                <StyledProjectsWrapper>
-                    {data.allContentfulProjects.edges.map((project, i) => (
-                        <StyledSection id={project.node.idText} key={i}>
-                            <StyledHeader>
-                                <StyledHeaderTitle>
-                                    <StyledTitleH2>
-                                        {project.node.title}
-                                        <StyledTitleLabel>{`0${i + 1}`}</StyledTitleLabel>
-                                    </StyledTitleH2>
-                                    <StyledSubtitle>{project.node.subtitle}</StyledSubtitle>
-                                </StyledHeaderTitle>
-                                <StyledLinks>
-                                    <StyledLink href={project.node.live}><Img fixed={data.link.childImageSharp.fixed} alt="xx" /></StyledLink>
-                                    <StyledLink href={project.node.code}><Img fixed={data.github.childImageSharp.fixed} alt="xx" /></StyledLink>
-                                </StyledLinks>
-                            </StyledHeader>
-                            <StyledDescription>
-                                <StyledListTitle>The following functions have been implemented:</StyledListTitle>
-                                <StyledDescriptionList>
-                                    {project.node.functions.map(e => (
-                                        <StyledPointedElement key={e}>{e}</StyledPointedElement>
-                                    ))}
-                                </StyledDescriptionList>
-                                <StyledListTitle>Technologies:</StyledListTitle>
-                                <StyledDescriptionList>
-                                    {project.node.technologies.map(e => (
-                                        // <StyledTechnologiesElement key={e}>
-                                        //     <StyledTechnologiesIcon src={'https://cdn4.iconfinder.com/data/icons/scripting-and-programming-languages/512/js-512.png'}></StyledTechnologiesIcon>
-                                        //     <StyledTechnologiesLabel>{e}</StyledTechnologiesLabel>
-                                        // </StyledTechnologiesElement>
-                                        <StyledPointedElement key={e}>{e}</StyledPointedElement>
-                                    ))}
-                                </StyledDescriptionList>
-                            </StyledDescription>
-                            <StyledImage
-                                fluid={project.node.image.fluid}
-                                imgStyle={{ objectFit: 'contain', objectPosition: 'top' }}
-                                alt="image"
-                            ></StyledImage>
-                        </StyledSection>
-                    ))}
-                </StyledProjectsWrapper>
-            </Layout>
-        </>
-    )
-}
 
+class Projects extends Component {
+    componentDidMount() {
+        if (window.location.search) {
+            setTimeout(function () {
+                window.scrollTo(0, 0);
+                let search = window.location.search.slice(1)
+                let el = document.getElementById(search);
+                console.log(el)
+                window.scroll({
+                    behavior: 'smooth',
+                    left: 0,
+                    top: el.offsetTop + 10
+                });
+            }, 1);
+        }
+    }
+    render() {
+        let data = this.props.data;
+        return (
+            <>
+                <Layout>
+                    <PageInfo>projects</PageInfo>
+                    <ProjectsNavBar data={data.allContentfulProjects.edges} />
+                    <StyledProjectsWrapper>
+                        {data.allContentfulProjects.edges.map((project, i) => (
+                            <StyledSection id={project.node.idText} key={i}>
+                                <StyledHeader>
+                                    <StyledHeaderTitle>
+                                        <StyledTitleH2>
+                                            {project.node.title}
+                                            <StyledTitleLabel>{`0${i + 1}`}</StyledTitleLabel>
+                                        </StyledTitleH2>
+                                        <StyledSubtitle>{project.node.subtitle}</StyledSubtitle>
+                                    </StyledHeaderTitle>
+                                    <StyledLinks>
+                                        <StyledLink href={project.node.live}><Img fixed={data.link.childImageSharp.fixed} alt="xx" /></StyledLink>
+                                        <StyledLink href={project.node.code}><Img fixed={data.github.childImageSharp.fixed} alt="xx" /></StyledLink>
+                                    </StyledLinks>
+                                </StyledHeader>
+                                <StyledDescription>
+                                    <StyledListTitle>The following functions have been implemented:</StyledListTitle>
+                                    <StyledDescriptionList>
+                                        {project.node.functions.map(e => (
+                                            <StyledPointedElement key={e}>{e}</StyledPointedElement>
+                                        ))}
+                                    </StyledDescriptionList>
+                                    <StyledListTitle>Technologies:</StyledListTitle>
+                                    <StyledDescriptionList>
+                                        {project.node.technologies.map(e => (
+                                            // <StyledTechnologiesElement key={e}>
+                                            //     <StyledTechnologiesIcon src={'https://cdn4.iconfinder.com/data/icons/scripting-and-programming-languages/512/js-512.png'}></StyledTechnologiesIcon>
+                                            //     <StyledTechnologiesLabel>{e}</StyledTechnologiesLabel>
+                                            // </StyledTechnologiesElement>
+                                            <StyledPointedElement key={e}>{e}</StyledPointedElement>
+                                        ))}
+                                    </StyledDescriptionList>
+                                </StyledDescription>
+                                <StyledImage
+                                    fluid={project.node.image.fluid}
+                                    imgStyle={{ objectFit: 'contain', objectPosition: 'top' }}
+                                    alt="image"
+                                ></StyledImage>
+                            </StyledSection>
+                        ))}
+                    </StyledProjectsWrapper>
+                </Layout>
+            </>
+        )
+    }
+}
 export default Projects
 
 export const query = graphql`

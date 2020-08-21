@@ -9,6 +9,7 @@ const StyledMagnetizeButton = styled.button`
     right: 24px;
     width: 40px;
     height: 40px;
+    margin: 2px;
     border: 2px solid ${({ theme }) => theme.colors.font};
     background: transparent;
     border-radius: 50%;
